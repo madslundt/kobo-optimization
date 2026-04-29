@@ -1,0 +1,10 @@
+# --- Cloud Services ---
+menu_item:main:Dropbox:nickel_open:library:dropbox
+menu_item:main:Google Drive:nickel_open:library:gdrivestore
+
+# --- Læse-indstillinger ---
+menu_item:main:Mørk Tilstand:nickel_setting:toggle:dark_mode
+
+# --- System-værktøjer ---
+menu_item:main:Genstart:cmd_spawn:reboot
+menu_item:main:Forbind Wi-Fi:cmd_spawn:/usr/bin/nmcli radio wifi on && /usr/bin/nmcli dev wifi connect
