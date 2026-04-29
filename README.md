@@ -10,7 +10,7 @@ This repository contains a pre-configured setup for Kobo devices, aimed at power
 - **`Kobo eReader.conf`**: Pre-configured system file enabling Dropbox, Google Drive, and CWA API endpoints.
 - **`config`**: The NickelMenu configuration file for Dark Mode, WiFi, and Cloud shortcuts.
 - **`fonts/`**: A collection of NV-optimized fonts (Bookerly, Atkinson Hyperlegible, etc.).
-- **`dict/`**: High-quality Wiktionary-based dictionaries (currently English & Danish but more can be downloaded from [Reader-Dict Project](https://github.com/reader-dict/monolingual)).
+- **`dict/`**: High-quality Wiktionary-based dictionaries — not included in this repo, download from the [Reader-Dict Project](https://github.com/reader-dict/monolingual).
 
 ---
 

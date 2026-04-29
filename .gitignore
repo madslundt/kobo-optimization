@@ -4,6 +4,9 @@
 .LSOverride
 ._*
 
+# Dictionaries (download from https://github.com/reader-dict/monolingual)
+dict/
+
 # oh-my-claudecode
 .omc/
 
