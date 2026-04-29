@@ -60,7 +60,7 @@ This repository contains a pre-configured setup for Kobo devices, aimed at power
 Toggle Dark Mode instantly via the NickelMenu button.
 
 ### ☁️ Cloud & Wireless Sync
-Direct access to Dropbox and Google Drive, plus automated syncing with **Calibre-Web**. Books appear automatically when hitting "Sync".
+Direct access to Dropbox and Google Drive, plus automated syncing with **Calibre-Web-Automated**. Books appear automatically when hitting "Sync".
 
 ### 📖 Enhanced Typography
 This setup uses the **NV Font Collection**, which is specifically patched for Kobo firmware to allow advanced weight (thickness) adjustments and better kerning.
@@ -71,7 +71,7 @@ This setup uses the **NV Font Collection**, which is specifically patched for Ko
 - **NickelMenu:** [pgaskin.net](https://pgaskin.net/NickelMenu/)
 - **NV Fonts:** [Nico Verbruggen](https://github.com/nicoverbruggen/ebook-fonts)
 - **Dictionaries:** [Reader-Dict Project](https://github.com/reader-dict/monolingual)
-- **Calibre-Web:** [Janusek/calibre-web](https://github.com/janusek/calibre-web)
+- **Calibre-Web-Automated:** [crocodilestick/Calibre-Web-Automated](https://github.com/crocodilestick/Calibre-Web-Automated)
 
 ---
 
