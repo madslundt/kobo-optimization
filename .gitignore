@@ -4,6 +4,9 @@
 .LSOverride
 ._*
 
+# NickelMenu installer (download from https://pgaskin.net/NickelMenu/)
+KoboRoot.tgz
+
 # Dictionaries (download from https://github.com/reader-dict/monolingual)
 dict/
 

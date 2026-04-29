@@ -6,7 +6,7 @@ This repository contains a pre-configured setup for Kobo devices, aimed at power
 
 ## 📦 What's in this Repo?
 
-- **`KoboRoot.tgz`**: The installer for NickelMenu.
+- **`KoboRoot.tgz`**: The NickelMenu installer — not included in this repo, download from [pgaskin.net/NickelMenu](https://pgaskin.net/NickelMenu/).
 - **`Kobo eReader.conf`**: Pre-configured system file enabling Dropbox, Google Drive, and CWA API endpoints.
 - **`config`**: The NickelMenu configuration file for Dark Mode, WiFi, and Cloud shortcuts.
 - **`fonts/`**: A collection of NV-optimized fonts (Bookerly, Atkinson Hyperlegible, etc.).
@@ -21,8 +21,9 @@ This repository contains a pre-configured setup for Kobo devices, aimed at power
 * Make sure your computer is set to **"Show hidden files and folders"** (to see the `.kobo` directory).
 
 ### 2. Install NickelMenu
-1. Copy `KoboRoot.tgz` into the `.kobo/` folder on your e-reader.
-2. Eject the Kobo and unplug it. The device will restart and install NickelMenu.
+1. Download `KoboRoot.tgz` from [pgaskin.net/NickelMenu](https://pgaskin.net/NickelMenu/).
+2. Copy it into the `.kobo/` folder on your e-reader.
+3. Eject the Kobo and unplug it. The device will restart and install NickelMenu.
 
 ### 3. System Configuration (Cloud & CWA)
 1. Reconnect your Kobo to the PC.
