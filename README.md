@@ -45,10 +45,11 @@ This repository contains a pre-configured setup for Kobo devices, aimed at power
 3. Copy the subfolders from the `fonts/` directory in this repo into that folder.
    * *Recommended:* Use **KF_Readerly** (Bookerly) or **KF_Legible_Next** (Atkinson) for the best experience.
 
-### 6. Upgrade Dictionaries
-1. Navigate to `.kobo/dict/`.
-2. Copy the files from the `dict/` folder in this repo into this directory.
-3. **Renaming:** Ensure the English dictionary is named `dicthtml-en.zip` and the Danish one is named `dicthtml-da.zip`. Do **not** unzip them.
+### 6. Install Dictionaries
+1. Download the desired dictionary files from the [Reader-Dict Project](https://github.com/reader-dict/monolingual) (e.g. `dicthtml-en-en.zip`, `dicthtml-da-da.zip`).
+2. Navigate to `.kobo/custom-dict/` on your Kobo (create the folder if it doesn't exist).
+3. Copy the `.zip` files into that folder. Do **not** unzip them.
+   * *Note:* Safari on macOS may auto-unzip files — check your download settings if this happens.
 
 ---
 
