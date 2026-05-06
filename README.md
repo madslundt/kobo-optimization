@@ -74,30 +74,70 @@ Tailscale lets you access your Kobo remotely over a secure VPN mesh network.
 
 > **Supported devices:** Kobo Clara BW, Kobo Libra 2, Kobo Libra Colour/Color
 
-1. Download or clone the [kobo-tailscale](https://github.com/videah/kobo-tailscale) repository.
-2. Copy the repo onto your Kobo e-reader's onboard storage.
-3. Navigate to the folder matching your device (`clara-bw`, `libra2`, or `libra-color`).
-4. Connect your Kobo and run the install script:
-   ```sh
-   ./install-tailscale.sh
-   ```
-5. Once installed, authenticate Tailscale on the device:
-   ```sh
-   tailscale up
-   ```
-   Follow the on-screen link to log in to your Tailscale account.
-6. *(Optional)* If you experience DNS issues, disable Tailscale's DNS override:
-   ```sh
-   tailscale set --accept-dns=false
-   ```
-7. The NickelMenu shortcuts added by this repo's `config` file let you toggle Tailscale on/off directly from the Kobo menu:
-   - **Tailscale** → connects (`tailscale.sh up`)
-   - **Tailscale Down** → disconnects (`tailscale.sh down`)
-8. *(Optional)* To use Calibre-Web-Automated over Tailscale (i.e. when away from home), update the `api_endpoint` in `.kobo/Kobo/Kobo eReader.conf` to use the **Tailscale IP** of your server instead of the local IP:
-   ```ini
-   [OneStoreServices]
-   api_endpoint=http://<tailscale-ip>:8083/kobo/your-unique-key
-   ```
+> **Important:** The install script writes to system paths on the Kobo's internal Linux filesystem and must be run **on the device itself via SSH** — not from your PC.
+
+#### 7.1 Copy the kobo-tailscale repo to onboard storage
+1. Download or clone the [kobo-tailscale](https://github.com/madslundt/kobo-tailscale) repository.
+2. With your Kobo connected via USB, copy the folder matching your device (e.g. `clara-bw`) onto the Kobo's onboard storage root.
+   - On the device this maps to `/mnt/onboard/clara-bw`.
+
+#### 7.2 Enable SSH on the Kobo
+If SSH is not already enabled, tap the firmware version **5 times** in **Settings > Device information** to enable developer mode, which opens the SSH server.
+
+#### 7.3 Connect to WiFi and find the IP address
+1. On the device: **Settings > Network > Wi-Fi** — connect to your network. The install script downloads the Tailscale binary, so WiFi must be active during installation.
+2. Note the IP address shown under **Settings > Device information**.
+
+#### 7.4 SSH into the device
+From your terminal (default root password is blank — press Enter):
+```sh
+ssh root@<kobo-ip>
+```
+
+#### 7.5 Run the install script
+```sh
+cd /mnt/onboard/clara-bw
+sh install-tailscale.sh
+```
+The script will:
+- Copy iptables binaries to `/sbin` and `/lib`
+- Download the Tailscale binary from `pkgs.tailscale.com`
+- Install Tailscale to `/mnt/onboard/tailscale` and symlink into `/usr/bin`
+- Copy lifecycle scripts to `/usr/local/tailscale`
+- Install udev rules to `/etc/udev/rules.d/98-tailscale.rules`
+- Start the `tailscaled` daemon
+
+#### 7.6 Authenticate Tailscale
+Still in the SSH session:
+```sh
+tailscale up
+```
+This prints a URL — open it on another device/browser to log in and authorize the Kobo.
+
+#### 7.7 Verify the installation
+```sh
+tailscale status          # should show the device connected to your tailnet
+ls /mnt/onboard/tailscale # should contain tailscale, tailscaled, and state files
+ls /usr/local/tailscale   # should contain the boot/wlan scripts
+```
+
+#### 7.8 *(Optional)* Disable Tailscale DNS
+If DNS stops working after connecting:
+```sh
+tailscale set --accept-dns=false
+```
+
+#### 7.9 NickelMenu shortcuts
+The NickelMenu shortcuts added by this repo's `config` file let you toggle Tailscale on/off directly from the Kobo menu:
+- **Tailscale** → connects (`tailscale.sh up`)
+- **Tailscale Down** → disconnects (`tailscale.sh down`)
+
+#### 7.10 *(Optional)* Use Tailscale IP for Calibre-Web-Automated
+To access CWA when away from home, update `api_endpoint` in `.kobo/Kobo/Kobo eReader.conf` to your server's Tailscale IP:
+```ini
+[OneStoreServices]
+api_endpoint=http://<tailscale-ip>:8083/kobo/your-unique-key
+```
 
 ### 7b. *(Optional)* Auto-switch API endpoint on Tailscale toggle
 
