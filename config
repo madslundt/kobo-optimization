@@ -10,5 +10,7 @@ menu_item:main:Reboot:cmd_spawn:reboot
 menu_item:main:Connect Wi-Fi:cmd_spawn:/usr/bin/nmcli radio wifi on && /usr/bin/nmcli dev wifi connect
 
 # --- Tailscale ---
-menu_item:main:Tailscale:cmd_spawn:/mnt/onboard/.adds/tailscale/tailscale.sh up
-menu_item:main:Tailscale Down:cmd_spawn:/mnt/onboard/.adds/tailscale/tailscale.sh down
+menu_item:main:Tailscale:cmd_output:/mnt/onboard/.adds/tailscale/tailscale.sh up 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-tailscale-ip:8083/kobo/your-key
+menu_item:main:Tailscale + Reboot:cmd_spawn:/mnt/onboard/.adds/tailscale/tailscale.sh up 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-tailscale-ip:8083/kobo/your-key ; reboot
+menu_item:main:Tailscale Down:cmd_output:/mnt/onboard/.adds/tailscale/tailscale.sh down 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-local-ip:8083/kobo/your-key
+menu_item:main:Tailscale Down + Reboot:cmd_spawn:/mnt/onboard/.adds/tailscale/tailscale.sh down 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-local-ip:8083/kobo/your-key ; reboot
