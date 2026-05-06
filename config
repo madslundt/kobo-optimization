@@ -6,11 +6,8 @@ menu_item:main:Google Drive:nickel_open:library:gdrivestore
 menu_item:main:Dark Mode:nickel_setting:toggle:dark_mode
 
 # --- System Tools ---
-menu_item:main:Reboot:cmd_spawn:reboot
-menu_item:main:Connect Wi-Fi:cmd_spawn:/usr/bin/nmcli radio wifi on && /usr/bin/nmcli dev wifi connect
+menu_item:main:Reboot:cmd_spawn:[ -x /mnt/onboard/.adds/kobo-cwa/switch-api.sh ] && /mnt/onboard/.adds/kobo-cwa/switch-api.sh --sync ; reboot
 
 # --- Tailscale ---
 menu_item:main:Tailscale:cmd_output:/mnt/onboard/.adds/tailscale/tailscale.sh up 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-tailscale-ip:8083/kobo/your-key
-menu_item:main:Tailscale + Reboot:cmd_spawn:/mnt/onboard/.adds/tailscale/tailscale.sh up 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-tailscale-ip:8083/kobo/your-key ; reboot
 menu_item:main:Tailscale Down:cmd_output:/mnt/onboard/.adds/tailscale/tailscale.sh down 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-local-ip:8083/kobo/your-key
-menu_item:main:Tailscale Down + Reboot:cmd_spawn:/mnt/onboard/.adds/tailscale/tailscale.sh down 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-local-ip:8083/kobo/your-key ; reboot

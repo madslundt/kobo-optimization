@@ -8,7 +8,7 @@ This repository contains a pre-configured setup for Kobo devices, aimed at power
 
 - **`KoboRoot.tgz`**: The NickelMenu installer — not included in this repo, download from [pgaskin.net/NickelMenu](https://pgaskin.net/NickelMenu/).
 - **`Kobo eReader.conf`**: Pre-configured system file enabling Dropbox, Google Drive, and CWA API endpoints.
-- **`config`**: The NickelMenu configuration file for Dark Mode, WiFi, Cloud, and Tailscale shortcuts.
+- **`config`**: The NickelMenu configuration file for Dark Mode, Cloud, Reboot, and Tailscale shortcuts.
 - **`fonts/`**: A collection of NV-optimized fonts (Bookerly, Atkinson Hyperlegible, etc.).
 - **`dict/`**: High-quality Wiktionary-based dictionaries — not included in this repo, download from the [Reader-Dict Project](https://github.com/reader-dict/monolingual).
 
@@ -54,8 +54,8 @@ Connect your Kobo to your Tailscale network for secure remote access. Toggle the
 ### 4. Setup NickelMenu Shortcuts
 1. Navigate to `.adds/nm/` (create the `nm` folder if it doesn't exist).
 2. Copy the `config` file from this repo into that folder.
-3. This adds shortcuts for **Dark Mode**, **Dropbox**, **Google Drive**, **Reboot**, and **Tailscale** (four items: up, up+reboot, down, down+reboot).
-   * *(Optional)* If you want the Tailscale items to also auto-switch the CWA API endpoint, replace the placeholder URLs in the four `Tailscale` lines with your actual local and Tailscale IPs — see **Step 7b** below.
+3. This adds shortcuts for **Dark Mode**, **Dropbox**, **Google Drive**, **Reboot**, and **Tailscale** (up and down).
+   * *(Optional)* If you want the Tailscale items to also auto-switch the CWA API endpoint, replace the placeholder URLs in the two `Tailscale` lines with your actual local and Tailscale IPs — see **Step 7b** below.
 
 ### 5. Install Custom Fonts
 1. Go to the root of your Kobo storage.
@@ -102,22 +102,23 @@ Tailscale lets you access your Kobo remotely over a secure VPN mesh network.
 
 Instead of manually editing `Kobo eReader.conf` each time you switch networks, you can have the Tailscale menu items update `api_endpoint` automatically.
 
-1. Open the `config` file from this repo and fill in your actual URLs in the four Tailscale lines:
+1. Open the `config` file from this repo and fill in your actual URLs in the two Tailscale lines:
    ```
    # Replace http://your-tailscale-ip:8083/kobo/your-key with your Tailscale server IP
    # Replace http://your-local-ip:8083/kobo/your-key with your local network server IP
    ```
-2. On your Kobo, create the folder `.adds/kobo-cwa/`.
-3. Copy `scripts/switch-api.sh` from this repo into that folder and make it executable:
+2. Open `Kobo eReader.conf` and set `active_api_endpoint` to match your starting `api_endpoint`.
+3. On your Kobo, create the folder `.adds/kobo-cwa/`.
+4. Copy `scripts/switch-api.sh` from this repo into that folder and make it executable:
    ```sh
    chmod +x /mnt/onboard/.adds/kobo-cwa/switch-api.sh
    ```
-4. Copy the updated `config` file to `.adds/nm/config`.
+5. Copy the updated `config` and `Kobo eReader.conf` files to their destinations on the device.
 
 **How it works:**
-- **Tailscale** / **Tailscale Down** — connects or disconnects, then shows a dialog if the API endpoint was changed. Dismiss the dialog and use the **Reboot** menu item when ready.
-- **Tailscale + Reboot** / **Tailscale Down + Reboot** — connects or disconnects, updates the endpoint, and reboots immediately.
-- If the endpoint is already set correctly, no dialog appears and the toggle is silent.
+- **Tailscale** / **Tailscale Down** — connects or disconnects, then shows a dialog if the API endpoint was changed. Dismiss the dialog, then tap **Reboot** in the menu to apply immediately, or continue reading and reboot later.
+- If the endpoint is already set correctly (e.g. toggling back before rebooting), no dialog appears and the toggle is silent.
+- The **Reboot** menu item syncs the active endpoint state before rebooting so the tracking stays accurate.
 
 ---
 
