@@ -50,6 +50,7 @@ Connect your Kobo to your Tailscale network for secure remote access. Toggle the
      [OneStoreServices]
      api_endpoint=http://your-server-ip:8083/kobo/your-unique-key
      ```
+   * If you also plan to use the auto-switch feature (Step 7b), set `active_api_endpoint` to the same value as `api_endpoint`.
 
 ### 4. Setup NickelMenu Shortcuts
 1. Navigate to `.adds/nm/` (create the `nm` folder if it doesn't exist).
