@@ -50,7 +50,6 @@ Connect your Kobo to your Tailscale network for secure remote access. Toggle the
      [OneStoreServices]
      api_endpoint=http://your-server-ip:8083/kobo/your-unique-key
      ```
-   * If you also plan to use the auto-switch feature (Step 7b), set `active_api_endpoint` to the same value as `api_endpoint`.
 
 ### 4. Setup NickelMenu Shortcuts
 1. Navigate to `.adds/nm/` (create the `nm` folder if it doesn't exist).
@@ -108,13 +107,12 @@ Instead of manually editing `Kobo eReader.conf` each time you switch networks, y
    # Replace http://your-tailscale-ip:8083/kobo/your-key with your Tailscale server IP
    # Replace http://your-local-ip:8083/kobo/your-key with your local network server IP
    ```
-2. Open `Kobo eReader.conf` and set `active_api_endpoint` to match your starting `api_endpoint`.
-3. On your Kobo, create the folder `.adds/kobo-cwa/`.
-4. Copy `scripts/switch-api.sh` from this repo into that folder and make it executable:
+2. On your Kobo, create the folder `.adds/kobo-cwa/`.
+3. Copy `scripts/switch-api.sh` from this repo into that folder and make it executable:
    ```sh
    chmod +x /mnt/onboard/.adds/kobo-cwa/switch-api.sh
    ```
-5. Copy the updated `config` and `Kobo eReader.conf` files to their destinations on the device.
+4. Copy the updated `config` file to `.adds/nm/config`.
 
 **How it works:**
 - **Tailscale** / **Tailscale Down** — connects or disconnects, then shows a dialog if the API endpoint was changed. Dismiss the dialog, then tap **Reboot** in the menu to apply immediately, or continue reading and reboot later.
