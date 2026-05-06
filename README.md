@@ -75,24 +75,25 @@ Tailscale lets you access your Kobo remotely over a secure VPN mesh network.
 > **Supported devices:** Kobo Clara BW, Kobo Libra 2, Kobo Libra Colour/Color
 
 1. Download or clone the [kobo-tailscale](https://github.com/videah/kobo-tailscale) repository.
-2. Navigate to the folder matching your device (`clara-bw`, `libra2`, or `libra-color`).
-3. Connect your Kobo and run the install script:
+2. Copy the repo onto your Kobo e-reader's onboard storage.
+3. Navigate to the folder matching your device (`clara-bw`, `libra2`, or `libra-color`).
+4. Connect your Kobo and run the install script:
    ```sh
    ./install-tailscale.sh
    ```
-4. Once installed, authenticate Tailscale on the device:
+5. Once installed, authenticate Tailscale on the device:
    ```sh
    tailscale up
    ```
    Follow the on-screen link to log in to your Tailscale account.
-5. *(Optional)* If you experience DNS issues, disable Tailscale's DNS override:
+6. *(Optional)* If you experience DNS issues, disable Tailscale's DNS override:
    ```sh
    tailscale set --accept-dns=false
    ```
-6. The NickelMenu shortcuts added by this repo's `config` file let you toggle Tailscale on/off directly from the Kobo menu:
+7. The NickelMenu shortcuts added by this repo's `config` file let you toggle Tailscale on/off directly from the Kobo menu:
    - **Tailscale** → connects (`tailscale.sh up`)
    - **Tailscale Down** → disconnects (`tailscale.sh down`)
-7. *(Optional)* To use Calibre-Web-Automated over Tailscale (i.e. when away from home), update the `api_endpoint` in `.kobo/Kobo/Kobo eReader.conf` to use the **Tailscale IP** of your server instead of the local IP:
+8. *(Optional)* To use Calibre-Web-Automated over Tailscale (i.e. when away from home), update the `api_endpoint` in `.kobo/Kobo/Kobo eReader.conf` to use the **Tailscale IP** of your server instead of the local IP:
    ```ini
    [OneStoreServices]
    api_endpoint=http://<tailscale-ip>:8083/kobo/your-unique-key
