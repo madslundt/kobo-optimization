@@ -85,13 +85,14 @@ In `.adds/nm/config`, uncomment the three **Step 1** lines in the Tailscale sect
 
 #### 7.3 Install
 1. Make sure WiFi is connected on the Kobo.
-2. Tap **Install Tailscale** — runs in the background (~1 min).
+2. Tap **Install Tailscale** — runs in the background.
 3. Tap **Tailscale Log** to confirm it succeeded.
 
 #### 7.4 Authenticate
 1. Tap **Tailscale Auth** — runs in the background.
 2. Wait a few seconds, then tap **Tailscale Log** to get the login URL.
 3. Open the URL on another device to authorize the Kobo.
+4. Tap **Tailscale Log** again to verify the connection succeeded.
 
 #### 7.5 Enable the Tailscale shortcuts
 Reconnect via USB and open `.adds/nm/config`:
