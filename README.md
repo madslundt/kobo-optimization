@@ -44,19 +44,23 @@ Connect your Kobo to your Tailscale network for secure remote access. Toggle the
 
 ### 3. System Configuration (Cloud & CWA)
 1. Reconnect your Kobo to the PC.
-2. Navigate to `.kobo/Kobo/`.
-3. Open `Kobo eReader.conf` (or replace it with the one from this repo).
-   * **Note:** If replacing, make sure to edit the `api_endpoint` under `[OneStoreServices]` with your own Calibre-Web URL:
+2. Navigate to `.kobo/Kobo/` and open `Kobo eReader.conf`.
+3. Copy the relevant settings from the `Kobo eReader.conf` in this repo into your device's file.
+   * Make sure to set the `api_endpoint` under `[OneStoreServices]` to your own Calibre-Web URL:
      ```ini
      [OneStoreServices]
      api_endpoint=http://your-server-ip:8083/kobo/your-unique-key
      ```
 
 ### 4. Setup NickelMenu Shortcuts
+
+> **Requires:** Step 2 (NickelMenu installed)
+
 1. Navigate to `.adds/nm/` (create the `nm` folder if it doesn't exist).
 2. Copy the `config` file from this repo into that folder.
-3. This adds shortcuts for **Dark Mode**, **Dropbox**, **Google Drive**, **Reboot**, and **Tailscale** (up and down).
-   * *(Optional)* If you want the Tailscale items to also auto-switch the CWA API endpoint, replace the placeholder URLs in the two `Tailscale` lines with your actual local and Tailscale IPs — see **Step 7b** below.
+3. This adds shortcuts for **Dark Mode**, **Dropbox**, **Google Drive**, and **Reboot**.
+   * *(Optional)* To enable Tailscale shortcuts, follow **Step 7** first, then return here to uncomment the Tailscale items in the config.
+   * *(Optional)* To auto-switch the CWA API endpoint when toggling Tailscale, see **Step 8**.
 
 ### 5. Install Custom Fonts
 1. Go to the root of your Kobo storage.
@@ -71,6 +75,9 @@ Connect your Kobo to your Tailscale network for secure remote access. Toggle the
    * *Note:* Safari on macOS may auto-unzip files — check your download settings if this happens.
 
 ### 7. Install Tailscale
+
+> **Requires:** Step 2 (NickelMenu installed) and Step 4 (NickelMenu config copied)
+
 Tailscale lets you access your Kobo remotely over a secure VPN mesh network.
 
 > **Supported devices:** Kobo Clara BW, Kobo Libra 2, Kobo Libra Colour/Color
@@ -100,23 +107,34 @@ Reconnect via USB and open `.adds/nm/config`:
 - Remove the three **Step 1** lines from step 7.2.
 - Uncomment the two **Step 2** lines to enable the **Tailscale** / **Tailscale Down** shortcuts.
 
-#### 7.6 *(Optional)* Disable Tailscale DNS
+#### 7.6 Disable Tailscale DNS
+
+> **Requires:** Step 7.3 (Tailscale installed)
+
 If DNS stops working after connecting, temporarily add this to `.adds/nm/config`, tap it once, then remove it:
 ```
 menu_item:main:Tailscale Fix DNS:cmd_output:9999:tailscale set --accept-dns=false
 ```
 
 #### 7.7 Uninstall Tailscale
+
+> **Requires:** Step 7.3 (Tailscale installed)
+
 In `.adds/nm/config`, uncomment the **Uninstall Tailscale** line, copy to the Kobo, tap it, then re-comment it.
 
-#### 7.8 *(Optional)* Use Tailscale IP for Calibre-Web-Automated
+#### 7.8 Use Tailscale IP for Calibre-Web-Automated
+
+> **Requires:** Step 3 (CWA configured) and Step 7.4 (Tailscale authenticated)
+
 Update `api_endpoint` in `.kobo/Kobo/Kobo eReader.conf` to your server's Tailscale IP:
 ```ini
 [OneStoreServices]
 api_endpoint=http://<tailscale-ip>:8083/kobo/your-unique-key
 ```
 
-### 7b. *(Optional)* Auto-switch API endpoint on Tailscale toggle
+### 8. Auto-switch API endpoint on Tailscale toggle
+
+> **Requires:** Step 3 (CWA configured), Step 4 (NickelMenu config copied), and Step 7 (Tailscale installed)
 
 Instead of manually editing `Kobo eReader.conf` each time you switch networks, you can have the Tailscale menu items update `api_endpoint` automatically.
 
