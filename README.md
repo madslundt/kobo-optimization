@@ -74,66 +74,41 @@ Tailscale lets you access your Kobo remotely over a secure VPN mesh network.
 
 > **Supported devices:** Kobo Clara BW, Kobo Libra 2, Kobo Libra Colour/Color
 
-> **Important:** The install script writes to system paths on the Kobo's internal Linux filesystem and must be run **on the device itself via SSH** — not from your PC.
+#### 7.1 Copy kobo-tailscale to the Kobo
+1. Download or clone the [kobo-tailscale](https://github.com/videah/kobo-tailscale) repository.
+2. Open `clara-bw/install-tailscale.sh` and check `TAILSCALE_VERSION` at the top — update it to the [latest stable release](https://pkgs.tailscale.com/stable/#static) if needed.
+3. Copy `scripts/run-tailscale-install.sh` and `scripts/run-tailscale-auth.sh` from **this repo** into `.adds/kobo-cwa/` on your Kobo.
+4. Copy the `clara-bw` folder onto the Kobo's onboard storage root (`/mnt/onboard/clara-bw`).
 
-#### 7.1 Copy the kobo-tailscale repo to onboard storage
-1. Download or clone the [kobo-tailscale](https://github.com/madslundt/kobo-tailscale) repository.
-2. With your Kobo connected via USB, copy the folder matching your device (e.g. `clara-bw`) onto the Kobo's onboard storage root.
-   - On the device this maps to `/mnt/onboard/clara-bw`.
+#### 7.2 Enable the install menu items
+In `.adds/nm/config`, uncomment the three **Step 1** lines in the Tailscale section, then eject and unplug.
 
-#### 7.2 Enable SSH on the Kobo
-If SSH is not already enabled, tap the firmware version **5 times** in **Settings > Device information** to enable developer mode, which opens the SSH server.
+#### 7.3 Install
+1. Make sure WiFi is connected on the Kobo.
+2. Tap **Install Tailscale** — runs in the background (~1 min).
+3. Tap **Tailscale Log** to confirm it succeeded.
 
-#### 7.3 Connect to WiFi and find the IP address
-1. On the device: **Settings > Network > Wi-Fi** — connect to your network. The install script downloads the Tailscale binary, so WiFi must be active during installation.
-2. Note the IP address shown under **Settings > Device information**.
+#### 7.4 Authenticate
+1. Tap **Tailscale Auth** — runs in the background.
+2. Wait a few seconds, then tap **Tailscale Log** to get the login URL.
+3. Open the URL on another device to authorize the Kobo.
 
-#### 7.4 SSH into the device
-From your terminal (default root password is blank — press Enter):
-```sh
-ssh root@<kobo-ip>
+#### 7.5 Enable the Tailscale shortcuts
+Reconnect via USB and open `.adds/nm/config`:
+- Remove the three **Step 1** lines from step 7.2.
+- Uncomment the two **Step 2** lines to enable the **Tailscale** / **Tailscale Down** shortcuts.
+
+#### 7.6 *(Optional)* Disable Tailscale DNS
+If DNS stops working after connecting, temporarily add this to `.adds/nm/config`, tap it once, then remove it:
+```
+menu_item:main:Tailscale Fix DNS:cmd_output:9999:tailscale set --accept-dns=false
 ```
 
-#### 7.5 Run the install script
-```sh
-cd /mnt/onboard/clara-bw
-sh install-tailscale.sh
-```
-The script will:
-- Copy iptables binaries to `/sbin` and `/lib`
-- Download the Tailscale binary from `pkgs.tailscale.com`
-- Install Tailscale to `/mnt/onboard/tailscale` and symlink into `/usr/bin`
-- Copy lifecycle scripts to `/usr/local/tailscale`
-- Install udev rules to `/etc/udev/rules.d/98-tailscale.rules`
-- Start the `tailscaled` daemon
+#### 7.7 Uninstall Tailscale
+In `.adds/nm/config`, uncomment the **Uninstall Tailscale** line, copy to the Kobo, tap it, then re-comment it.
 
-#### 7.6 Authenticate Tailscale
-Still in the SSH session:
-```sh
-tailscale up
-```
-This prints a URL — open it on another device/browser to log in and authorize the Kobo.
-
-#### 7.7 Verify the installation
-```sh
-tailscale status          # should show the device connected to your tailnet
-ls /mnt/onboard/tailscale # should contain tailscale, tailscaled, and state files
-ls /usr/local/tailscale   # should contain the boot/wlan scripts
-```
-
-#### 7.8 *(Optional)* Disable Tailscale DNS
-If DNS stops working after connecting:
-```sh
-tailscale set --accept-dns=false
-```
-
-#### 7.9 NickelMenu shortcuts
-The NickelMenu shortcuts added by this repo's `config` file let you toggle Tailscale on/off directly from the Kobo menu:
-- **Tailscale** → connects (`tailscale.sh up`)
-- **Tailscale Down** → disconnects (`tailscale.sh down`)
-
-#### 7.10 *(Optional)* Use Tailscale IP for Calibre-Web-Automated
-To access CWA when away from home, update `api_endpoint` in `.kobo/Kobo/Kobo eReader.conf` to your server's Tailscale IP:
+#### 7.8 *(Optional)* Use Tailscale IP for Calibre-Web-Automated
+Update `api_endpoint` in `.kobo/Kobo/Kobo eReader.conf` to your server's Tailscale IP:
 ```ini
 [OneStoreServices]
 api_endpoint=http://<tailscale-ip>:8083/kobo/your-unique-key

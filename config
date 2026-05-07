@@ -9,5 +9,14 @@ menu_item:main:Dark Mode:nickel_setting:toggle:dark_mode
 menu_item:main:Reboot:cmd_spawn:[ -x /mnt/onboard/.adds/kobo-cwa/switch-api.sh ] && /mnt/onboard/.adds/kobo-cwa/switch-api.sh --sync ; reboot
 
 # --- Tailscale ---
-menu_item:main:Tailscale:cmd_output:/mnt/onboard/.adds/tailscale/tailscale.sh up 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-tailscale-ip:8083/kobo/your-key
-menu_item:main:Tailscale Down:cmd_output:/mnt/onboard/.adds/tailscale/tailscale.sh down 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-local-ip:8083/kobo/your-key
+# Step 1: Uncomment during installation, remove when done (see README step 7.2)
+#menu_item:main:Install Tailscale:cmd_spawn:sh /mnt/onboard/.adds/kobo-cwa/run-tailscale-install.sh
+#menu_item:main:Tailscale Auth:cmd_spawn:sh /mnt/onboard/.adds/kobo-cwa/run-tailscale-auth.sh
+#menu_item:main:Tailscale Log:cmd_output:9999:tail -n 5 /mnt/onboard/tailscale.log
+
+# Step 2: Uncomment after Tailscale is installed and authenticated (see README step 7.5)
+#menu_item:main:Tailscale:cmd_output:9999:/mnt/onboard/.adds/tailscale/tailscale.sh up 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-tailscale-ip:8083/kobo/your-key
+#menu_item:main:Tailscale Down:cmd_output:9999:/mnt/onboard/.adds/tailscale/tailscale.sh down 2>/dev/null ; /mnt/onboard/.adds/kobo-cwa/switch-api.sh http://your-local-ip:8083/kobo/your-key
+
+# Uninstall: Uncomment to remove Tailscale, remove afterwards (see README step 7.7)
+#menu_item:main:Uninstall Tailscale:cmd_spawn:tailscale down; killall tailscaled; rm -rf /mnt/onboard/tailscale /usr/local/tailscale; rm -f /usr/bin/tailscale /usr/bin/tailscaled /etc/udev/rules.d/98-tailscale.rules
