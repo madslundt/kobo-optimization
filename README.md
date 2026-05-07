@@ -76,7 +76,7 @@ Connect your Kobo to your Tailscale network for secure remote access. Toggle the
 
 ### 7. Install Tailscale
 
-> **Requires:** Step 2 (NickelMenu installed) and Step 4 (NickelMenu config copied)
+> **Requires:** Step 4 (NickelMenu config copied)
 
 Tailscale lets you access your Kobo remotely over a secure VPN mesh network.
 
@@ -134,7 +134,7 @@ api_endpoint=http://<tailscale-ip>:8083/kobo/your-unique-key
 
 ### 8. Auto-switch API endpoint on Tailscale toggle
 
-> **Requires:** Step 3 (CWA configured), Step 4 (NickelMenu config copied), and Step 7 (Tailscale installed)
+> **Requires:** Step 3 (CWA configured) and Step 7 (Tailscale installed)
 
 Instead of manually editing `Kobo eReader.conf` each time you switch networks, you can have the Tailscale menu items update `api_endpoint` automatically.
 
